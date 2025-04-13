@@ -1,6 +1,21 @@
 
 const { MongoClient } = require("mongodb");
 
+const drivers = [
+    {
+        name: "John Doe",
+        vehicleType: "Sedan",
+        isAvailable: true, rating: 4.8
+    },
+    {
+        name: "Alice Smith",
+        vehicleType: "SUV",
+        isAvailable: false, rating: 4.5
+    }
+];
+
+console.log(drivers);
+
 async function main() {
     // MongoDB connection string
     const uri = "mongodb://localhost:27017";
@@ -36,3 +51,6 @@ async function main() {
 // Execute the main function
 main().catch(console.error);
 
+// show the data in the console console.log(drivers);
+// TODO: show the all the drivers name in the console
+// TODO: add additional driver to the drivers array
