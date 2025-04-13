@@ -1,7 +1,23 @@
+
 const { MongoClient } = require("mongodb");
 
+const drivers = [
+    {
+        name: "John Doe",
+        vehicleType: "Sedan",
+        isAvailable: true, rating: 4.8
+    },
+    {
+        name: "Alice Smith",
+        vehicleType: "SUV",
+        isAvailable: false, rating: 4.5
+    }
+];
+
+console.log(drivers);
+
 async function main() {
-    // Replace <connection-string> with your MongoDB URI
+    // MongoDB connection string
     const uri = "mongodb://localhost:27017";
     const client = new MongoClient(uri);
 
@@ -13,15 +29,15 @@ async function main() {
         const collection = db.collection("users");
 
         // Insert a document
-        await collection.insertOne({
-            name: "Alice", 
-            age: 25 
+        const insertResult = await collection.insertOne({
+            name: "Alice",
+            age: 25
         });
         console.log("Document inserted!");
 
         // Query the document
-        const result = await collection.findOne({ 
-            name: "Alice" 
+        const result = await collection.findOne({
+            name: "Alice"
         });
         console.log("Query result:", result);
 
@@ -32,4 +48,9 @@ async function main() {
     }
 }
 
-main();
+// Execute the main function
+main().catch(console.error);
+
+// show the data in the console console.log(drivers);
+// TODO: show the all the drivers name in the console
+// TODO: add additional driver to the drivers array
