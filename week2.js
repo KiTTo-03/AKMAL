@@ -37,13 +37,22 @@ async function main() {
         rating: {$gte: 4.5}
       }).toArray();
       console.log("Available drivers:", availableDrivers);
-  
+
+      const updateResults = await db.collection('drivers').updateOne(
+        {name: "AKMAL Doe"},
+        {$inc: {rating:0.1}}
+      );
+      console.log(`driver updated with result: ${updateResults}`);
+
+      const deleteResult= await db.collection('drivers').deleteOne({isAvailable: false});
+      console.log(`driver deleted with result: ${deleteResult}`);
 
     } finally {
         await client.close();
     }
 }
 
+main();
 // Execute the main function
   
 // Execute the main function
