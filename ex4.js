@@ -25,7 +25,7 @@ async function connectToMongoDB() {
 connectToMongoDB();
 
 // Parent Registration
-app.post('/parents/register', async (req, res) => {
+app.post('/management/parents/register', async (req, res) => {
     try {
         const result = await db.collection('parents').insertOne(req.body);
         res.status(201).json({ id: result.insertedId });
@@ -35,7 +35,7 @@ app.post('/parents/register', async (req, res) => {
 });
 
 // Parent Login
-app.post('/parents/login', async (req, res) => {
+app.post('/management/parents/login', async (req, res) => {
     try {
         const parent = await db.collection('parents').findOne(req.body);
         if (!parent) return res.status(401).json({ error: "Unauthorized" });
@@ -46,7 +46,7 @@ app.post('/parents/login', async (req, res) => {
 });
 
 // Child Registration
-app.post('/children/register', async (req, res) => {
+app.post('/management/children/register', async (req, res) => {
     try {
         const result = await db.collection('children').insertOne(req.body);
         res.status(201).json({ id: result.insertedId });
@@ -56,7 +56,7 @@ app.post('/children/register', async (req, res) => {
 });
 
 // Child Login
-app.post('/children/login', async (req, res) => {
+app.post('/management/children/login', async (req, res) => {
     try {
         const child = await db.collection('children').findOne(req.body);
         if (!child) return res.status(401).json({ error: "Unauthorized" });
@@ -67,7 +67,7 @@ app.post('/children/login', async (req, res) => {
 });
 
 // Add Task (Parent)
-app.post('/tasks', async (req, res) => {
+app.post('/management/tasks', async (req, res) => {
     try {
         const result = await db.collection('tasks').insertOne({
             ...req.body,
@@ -81,7 +81,7 @@ app.post('/tasks', async (req, res) => {
 });
 
 // View Tasks (Parent/Child)
-app.get('/tasks', async (req, res) => {
+app.get('/management/tasks', async (req, res) => {
     try {
         const tasks = await db.collection('tasks').find().toArray();
         res.status(200).json(tasks);
@@ -91,7 +91,7 @@ app.get('/tasks', async (req, res) => {
 });
 
 // Upload Proof to Complete Task (Child)
-app.post('/tasks/:id/proof', upload.single('proofImage'), async (req, res) => {
+app.post('/management/tasks/:id/proof', upload.single('proofImage'), async (req, res) => {
     try {
         const result = await db.collection('tasks').updateOne(
             { _id: new ObjectId(req.params.id) },
